@@ -3,17 +3,13 @@
     "type": "object",
     "schemaVersion": 1,
     "properties": {
-        "startUrls": {
-            "title": "Start URLs",
-            "type": "array",
-            "description": "URLs to start the SEO audit from",
-            "items": {
-                "type": "string"
-            },
-            "prefill": [
-                "https://apify.com"
-            ],
-            "editor": "select"
+        "startUrl": {
+            "title": "Start URL",
+            "type": "string",
+            "description": "URL to start the SEO audit from",
+            "example": "https://apify.com",
+            "prefill": "https://apify.com",
+            "editor": "textfield"
         },
         "proxy": {
             "title": "Proxy configuration",
@@ -102,7 +98,7 @@
         }
     },
     "required": [
-        "startUrls",
+        "startUrl",
         "proxy"
     ]
 }

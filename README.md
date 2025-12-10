@@ -17,17 +17,15 @@ The SEO Audit Tool is a powerful web crawler designed to perform comprehensive S
 
 The tool requires the following input parameters:
 
-- **startUrls**: An array of URLs where the crawling should begin. This is the primary input for specifying the website to audit.
+- **startUrl**: The URL where the crawling should begin. This is the primary input for specifying the website to audit.
 - **maxPagesToCrawl**: (Optional) The maximum number of pages to crawl. Default is unlimited if not specified.
-- **maxCrawlDepth**: (Optional) The maximum depth for crawling links from the start URLs.
+- **maxCrawlDepth**: (Optional) The maximum depth for crawling links from the start URL.
 
 ### Example Input Configuration
 
 ```json
 {
-  "startUrls": [
-    { "url": "https://example.com" }
-  ],
+  "startUrl": "https://example.com",
   "maxPagesToCrawl": 100,
   "maxCrawlDepth": 5
 }
@@ -73,14 +71,14 @@ The results are stored in Apify datasets. Each dataset item represents an audite
 
 ## Usage
 
-1. **Set Input Parameters**: Provide the start URLs and optional crawl limits in the input configuration.
+1. **Set Input Parameters**: Provide the start URL and optional crawl limits in the input configuration.
 2. **Run the Actor**: Execute the SEO Audit Tool on the Apify platform.
 3. **Retrieve Results**: Access the generated dataset for detailed audit reports.
 4. **Analyze and Act**: Review the findings to identify and fix SEO issues on your website.
 
 ### Example Usage
 
-To audit a website, set the `startUrls` to the homepage and run the actor. The tool will automatically crawl linked pages and compile the audit data.
+To audit a website, set the `startUrl` to the homepage and run the actor. The tool will automatically crawl linked pages and compile the audit data.
 
 ## Configuration
 

@@ -6,7 +6,7 @@ import { jsonLdLookup, microdataLookup } from './ontology_lookups.js';
 Actor.main(async () => {
     const input = await Actor.getInput();
     const {
-        startUrls,
+        startUrl,
         proxy,
         maxRequestsPerCrawl,
         maxDepth,
@@ -18,8 +18,6 @@ Actor.main(async () => {
         maxRequestRetries,
         handlePageTimeoutSecs = 3600,
     } = input;
-
-    const startUrl = startUrls[0];
 
     log.info(`SEO audit for ${startUrl} started`);
 
