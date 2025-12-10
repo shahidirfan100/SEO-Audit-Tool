@@ -7,7 +7,7 @@ const { basicSEO } = require('./seo.js');
 const { jsonLdLookup, microdataLookup } = require('./ontology_lookups.js');
 
 Apify.main(async () => {
-    const input = await Apify.getInput();
+    const input = await Apify.getValue('INPUT');
     const {
         startUrl,
         proxy,
