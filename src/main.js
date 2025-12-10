@@ -19,7 +19,7 @@ Actor.main(async () => {
         handlePageTimeoutSecs = 3600,
     } = input;
 
-    const startUrl = startUrls[0].url;
+    const startUrl = startUrls[0];
 
     log.info(`SEO audit for ${startUrl} started`);
 

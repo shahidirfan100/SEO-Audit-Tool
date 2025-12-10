@@ -8,20 +8,10 @@
             "type": "array",
             "description": "URLs to start the SEO audit from",
             "items": {
-                "type": "object",
-                "properties": {
-                    "url": {
-                        "type": "string",
-                        "title": "URL",
-                        "description": "URL to start crawling from",
-                        "example": "https://apify.com"
-                    }
-                }
+                "type": "string"
             },
             "prefill": [
-                {
-                    "url": "https://apify.com"
-                }
+                "https://apify.com"
             ],
             "editor": "requestListSources"
         },
