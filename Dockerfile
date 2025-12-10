@@ -1,5 +1,5 @@
 # Use official Apify SDK base image for JavaScript actors
-FROM apify/actor-node:22
+FROM apify/actor-node:20
 
 # Copy package files
 COPY package*.json ./
