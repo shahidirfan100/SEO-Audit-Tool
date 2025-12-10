@@ -11,15 +11,6 @@
             "prefill": "https://apify.com",
             "editor": "textfield"
         },
-        "proxy": {
-            "title": "Proxy configuration",
-            "description": "Use proxies to access the given website",
-            "type": "object",
-            "prefill": {
-                "useApifyProxy": true
-            },
-            "editor": "proxy"
-        },
         "maxRequestsPerCrawl": {
             "title": "Max pages",
             "description": "Maximum number of pages to visit. Defaults to unlimited pages",
@@ -41,9 +32,7 @@
             "example": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36",
             "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36",
             "type": "string",
-            "editor": "textfield",
-            "sectionCaption": "Experimental features",
-            "sectionDescription": "Features in this section are highly experimental."
+            "editor": "textfield"
         },
         "viewPortWidth": {
             "title": "Viewport width",
@@ -95,6 +84,15 @@
             },
             "type": "object",
             "editor": "json"
+        },
+         "proxy": {
+            "title": "Proxy configuration",
+            "description": "Use proxies to access the given website",
+            "type": "object",
+            "prefill": {
+                "useApifyProxy": true
+            },
+            "editor": "proxy"
         }
     },
     "required": [
