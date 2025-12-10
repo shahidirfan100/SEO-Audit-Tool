@@ -10,7 +10,7 @@
   "author": "Shahid",
   "license": "ISC",
   "dependencies": {
-    "apify": "^3.5.2",
+    "apify": "^3.4.5",
     "bluebird": "^3.7.2",
     "microdata-node": "^2.0.0"
   },
