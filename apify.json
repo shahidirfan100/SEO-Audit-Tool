@@ -1,0 +1,7 @@
+{
+	"name": "seo-audit-tool",
+    "version": "0.2",
+    "buildTag": "latest",
+    "env": null,
+	"template": "project_empty"
+}

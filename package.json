@@ -1,0 +1,24 @@
+{
+  "name": "seo-audit-tool",
+  "version": "2.0.0",
+  "description": "SEO audit tool",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "start": "node ./src/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shahid",
+  "license": "ISC",
+  "dependencies": {
+    "@apify/sdk": "^3.2.4",
+    "bluebird": "^3.7.2",
+    "microdata-node": "^2.0.0"
+  },
+  "devDependencies": {
+    "@apify/eslint-config": "^0.2.1",
+    "eslint": "^9.15.0",
+    "@types/jquery": "^3.5.16",
+    "@types/bluebird": "^3.5.42"
+  }
+}
