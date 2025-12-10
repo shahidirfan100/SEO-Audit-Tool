@@ -2,7 +2,6 @@
   "name": "seo-audit-tool",
   "version": "2.0.0",
   "description": "SEO audit tool",
-  "type": "module",
   "main": "main.js",
   "scripts": {
     "start": "node ./src/main.js",
@@ -11,7 +10,7 @@
   "author": "Shahid",
   "license": "ISC",
   "dependencies": {
-    "@apify/sdk": "^3.2.4",
+    "apify": "^3.5.2",
     "bluebird": "^3.7.2",
     "microdata-node": "^2.0.0"
   },

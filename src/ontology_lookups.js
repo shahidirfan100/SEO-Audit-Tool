@@ -1,5 +1,5 @@
-import microdataParser from 'microdata-node';
-import { log } from '@apify/sdk';
+const microdataParser = require('microdata-node');
+const Apify = require('apify');
 
 const jsonLdLookup = async (page) => {
     // const url = page.url();
@@ -11,7 +11,7 @@ const jsonLdLookup = async (page) => {
             isJsonLd = true;
             jsonLdData = await page.$eval('script[type="application/ld+json"]', (el) => JSON.parse(el.innerText));
         } catch (e) {
-            log.warning(`Parsing LD+JSON failed: ${e.message}`);
+            Apify.utils.log.warning(`Parsing LD+JSON failed: ${e.message}`);
         }
     }
     // console.timeEnd(`${url} jsonLdLookup`);

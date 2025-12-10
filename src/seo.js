@@ -1,7 +1,7 @@
-import { puppeteerUtils } from '@apify/sdk';
-import Bluebird from 'bluebird';
+const Apify = require('apify');
+const Bluebird = require('bluebird');
 
-const { injectJQuery } = puppeteerUtils;
+const { injectJQuery } = Apify.utils.puppeteer;
 
 const DEFAULT_SEO_PARAMS = {
     maxTitleLength: 70,

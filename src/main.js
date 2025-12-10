@@ -1,10 +1,13 @@
-import { Actor, log, enqueueLinks, PseudoUrl, createProxyConfiguration, openRequestQueue, PuppeteerCrawler, Dataset } from '@apify/sdk';
+const Apify = require('apify');
 
-import { basicSEO } from './seo.js';
-import { jsonLdLookup, microdataLookup } from './ontology_lookups.js';
+const { log, enqueueLinks } = Apify.utils;
+const { PseudoUrl } = Apify;
 
-Actor.main(async () => {
-    const input = await Actor.getInput();
+const { basicSEO } = require('./seo.js');
+const { jsonLdLookup, microdataLookup } = require('./ontology_lookups.js');
+
+Apify.main(async () => {
+    const input = await Apify.getInput();
     const {
         startUrl,
         proxy,
@@ -27,16 +30,14 @@ Actor.main(async () => {
 
     log.info(`Web host name: ${hostname}`);
 
-    const proxyConfiguration = await createProxyConfiguration({
+    const proxyConfiguration = await Apify.createProxyConfiguration({
         ...proxy,
     }) || undefined;
 
-    const requestQueue = await openRequestQueue();
+    const requestQueue = await Apify.openRequestQueue();
     await requestQueue.addRequest({ url: startUrl });
 
-    const dataset = await Dataset.open();
-
-    const crawler = new PuppeteerCrawler({
+    const crawler = new Apify.PuppeteerCrawler({
         requestQueue,
         proxyConfiguration,
         useSessionPool: true,
@@ -84,7 +85,7 @@ Actor.main(async () => {
                 microdata: await microdataLookup(page),
             };
 
-            await dataset.pushData(data);
+            await Apify.pushData(data);
 
             // Enqueue links, support SPAs
             const enqueueResults = await enqueueLinks({
@@ -118,7 +119,7 @@ Actor.main(async () => {
         handleFailedRequestFunction: async ({ request, error }) => {
             log.info(`Request ${request.url} failed too many times`);
 
-            await dataset.pushData({
+            await Apify.pushData({
                 url: request.url,
                 isLoaded: false,
                 errorMessage: error.message,
