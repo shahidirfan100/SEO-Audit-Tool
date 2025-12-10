@@ -12,7 +12,8 @@
             },
             "prefill": [
                 "https://apify.com"
-            ]
+            ],
+            "editor": "select"
         },
         "proxy": {
             "title": "Proxy configuration",
@@ -101,7 +102,7 @@
         }
     },
     "required": [
-        "startUrl",
+        "startUrls",
         "proxy"
     ]
 }
