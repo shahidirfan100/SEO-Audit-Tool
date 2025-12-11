@@ -41,8 +41,20 @@ Apify.main(async () => {
         requestQueue,
         proxyConfiguration,
         useSessionPool: false,
-        maxConcurrency: 20,
+        maxConcurrency: 5,
+        minConcurrency: 2,
         gotoFunction: async ({ request, page }) => {
+            // Block heavy resources before navigation
+            await page.setRequestInterception(true);
+            page.on('request', (req) => {
+                const type = req.resourceType();
+                if (['image', 'media', 'font', 'stylesheet', 'video'].includes(type)) {
+                    req.abort();
+                } else {
+                    req.continue();
+                }
+            });
+
             await page.setBypassCSP(true);
 
             if (userAgent) {
@@ -56,22 +68,15 @@ Apify.main(async () => {
                 });
             }
 
-            await page.setRequestInterception(true);
-            page.on('request', (req) => {
-                const type = req.resourceType();
-                if (['image', 'media', 'font', 'stylesheet'].includes(type)) return req.abort();
-                return req.continue();
-            });
-
             return page.goto(request.url, {
                 waitUntil: 'domcontentloaded',
-                timeout: pageTimeout,
+                timeout: pageTimeout || 30000,
             });
         },
         launchPuppeteerOptions: {
             ignoreHTTPSErrors: true,
+            headless: true,
             args: [
-                // needed for CSP to be actually bypassed, and fetch work inside the browser
                 '--allow-running-insecure-content',
                 '--disable-web-security',
                 '--enable-features=NetworkService',
@@ -80,13 +85,26 @@ Apify.main(async () => {
                 '--no-sandbox',
                 '--disable-dev-shm-usage',
                 '--disable-setuid-sandbox',
+                '--disable-extensions',
+                '--disable-background-networking',
+                '--disable-sync',
+                '--metrics-recording-only',
+                '--mute-audio',
+                '--no-first-run',
+                '--safebrowsing-disable-auto-update',
+                '--disable-default-apps',
+                '--no-zygote',
+                '--single-process',
             ],
         },
-        maxRequestRetries,
+        maxRequestRetries: maxRequestRetries || 1,
         maxRequestsPerCrawl,
-        handlePageTimeoutSecs,
+        handlePageTimeoutSecs: handlePageTimeoutSecs || 120,
         handlePageFunction: async ({ request, page }) => {
             log.info('Start processing', { url: request.url });
+
+            // Wait a bit for dynamic content
+            await page.waitFor(1000);
 
             const data = {
                 url: page.url(),
