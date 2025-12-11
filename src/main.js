@@ -40,7 +40,7 @@ Apify.main(async () => {
     const crawler = new Apify.PuppeteerCrawler({
         requestQueue,
         proxyConfiguration,
-        useSessionPool: true,
+        useSessionPool: false,
         gotoFunction: async ({ request, page }) => {
             await page.setBypassCSP(true);
 
@@ -56,7 +56,7 @@ Apify.main(async () => {
             }
 
             return page.goto(request.url, {
-                waitUntil: 'networkidle2',
+                waitUntil: 'load',
                 timeout: pageTimeout,
             });
         },
@@ -68,11 +68,16 @@ Apify.main(async () => {
                 '--disable-web-security',
                 '--enable-features=NetworkService',
                 '--ignore-certificate-errors',
+                '--disable-gpu',
+                '--no-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-setuid-sandbox',
             ],
         },
         maxRequestRetries,
         maxRequestsPerCrawl,
         handlePageTimeoutSecs,
+        maxConcurrency: 10,
         handlePageFunction: async ({ request, page }) => {
             log.info('Start processing', { url: request.url });
 
