@@ -41,6 +41,7 @@ Apify.main(async () => {
         requestQueue,
         proxyConfiguration,
         useSessionPool: false,
+        maxConcurrency: 20,
         gotoFunction: async ({ request, page }) => {
             await page.setBypassCSP(true);
 
@@ -55,8 +56,15 @@ Apify.main(async () => {
                 });
             }
 
+            await page.setRequestInterception(true);
+            page.on('request', (req) => {
+                const type = req.resourceType();
+                if (['image', 'media', 'font', 'stylesheet'].includes(type)) return req.abort();
+                return req.continue();
+            });
+
             return page.goto(request.url, {
-                waitUntil: 'load',
+                waitUntil: 'domcontentloaded',
                 timeout: pageTimeout,
             });
         },
@@ -77,7 +85,6 @@ Apify.main(async () => {
         maxRequestRetries,
         maxRequestsPerCrawl,
         handlePageTimeoutSecs,
-        maxConcurrency: 10,
         handlePageFunction: async ({ request, page }) => {
             log.info('Start processing', { url: request.url });
 
