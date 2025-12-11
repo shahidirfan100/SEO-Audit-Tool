@@ -104,7 +104,7 @@ Apify.main(async () => {
             log.info('Start processing', { url: request.url });
 
             // Wait a bit for dynamic content
-            await page.waitFor(1000);
+            await new Promise(resolve => setTimeout(resolve, 1000));
 
             const data = {
                 url: page.url(),
